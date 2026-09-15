@@ -130,8 +130,8 @@ function Receiver() {
     <div className="container-fluid">
       <div className="row">
         <div className="col p-5">
-          <h1 className="text-4xl font-semibold">You are now a receiver</h1>
-          <p>Please open your camera and scan the QR codes on the other device</p>
+          <h1 className="text-4xl font-semibold">Sei il ricevente!</h1>
+          <p>Accendi la tua fotocamera e scansiona i codici QR sul dispositivo dell'altro utente</p>
 
           <div className="row">
             <div className="col-lg-6">
@@ -152,9 +152,9 @@ function Receiver() {
             <div className="col-lg-6 lg:mt-0 mt-2">
               <h2 className="text-lg font-semibold">Received Packet</h2>
               <p>
-                Your packet details will appear below as you scan the QR codes.
+                I dettagli dei pacchetti ricevuti verranno visualizzati qui. Puoi vedere i dati del pacchetto corrente, il numero di pacchetti ricevuti e il numero totale di pacchetti.
                 <br />
-                Once you have received all packets, you can reconstruct the file using the data and metadata provided in the packets.
+                Una volta che tutti i pacchetti sono stati ricevuti, il file verrà ricostruito e scaricato automaticamente.
               </p>
               <pre className="bg-gray-100 p-2 rounded-md text-sm mt-2 border">
                 {JSON.stringify(
@@ -169,7 +169,7 @@ function Receiver() {
                   2,
                 )}
               </pre>
-              <h2 className="text-lg font-semibold mt-2">Progress - {progress}%</h2>
+              <h2 className="text-lg font-semibold mt-2">Progresso - {progress}%</h2>
               <div className="progress">
                 <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: `${progress}%` }}></div>
               </div>

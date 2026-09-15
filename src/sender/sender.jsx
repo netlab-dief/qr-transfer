@@ -98,9 +98,9 @@ function Sender() {
     <div className="container-fluid">
       <div className="row">
         <div className="col p-5">
-          <h1 className="text-4xl font-semibold">You are now a sender</h1>
-          <p>Please select a file (smaller than 100kb) and click on transfer</p>
-          <p>The app will start showing QR codes continously which you can scan on the other device acting as a receiver</p>
+          <h1 className="text-4xl font-semibold">Sei il mittente!</h1>
+          <p>Seleziona un file (più piccolo di 100kb) e clicca su trasferisci</p>
+          <p>L'app inizierà a mostrare codici QR continui che puoi scansionare sul dispositivo dell'altro utente che fungerà da ricevente</p>
 
           <div className="lg:max-w-[50%] mt-2">
             <input value={file_path} className="form-control" type="file" onChange={handleFileSelection} />
