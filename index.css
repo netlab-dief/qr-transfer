@@ -60,8 +60,16 @@ p {
 .home-credits {
   width: 100vw;
   max-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   overflow-wrap: anywhere;
+}
+
+.home-credits p {
+  margin: 0;
+  text-align: center !important;
 }
 
 .home-instructions {
