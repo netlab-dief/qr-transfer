@@ -139,18 +139,18 @@ function Receiver() {
               <canvas className="hidden" ref={canvas_ref}></canvas>
               <div className="w-full flex flex-wrap text-white gap-2">
                 <NavLink className="px-5 py-2 rounded-md bg-blue-500 text-white cursor-pointer border-2 hover:border-blue-800" to="/">
-                  Back
+                  Indietro
                 </NavLink>
                 <button className="px-5 py-2 rounded-md bg-green-500 text-white cursor-pointer border-2 hover:border-green-800" onClick={openCamera}>
-                  Open Camera
+                  Accendi Fotocamera
                 </button>
                 <button className="px-5 py-2 rounded-md bg-red-500 text-white cursor-pointer border-2 hover:border-red-800" onClick={closeCamera}>
-                  Close Camera
+                  Spegni Fotocamera
                 </button>
               </div>
             </div>
             <div className="col-lg-6 lg:mt-0 mt-2">
-              <h2 className="text-lg font-semibold">Received Packet</h2>
+              <h2 className="text-lg font-semibold">Pacchetti Ricevuti</h2>
               <p>
                 I dettagli dei pacchetti ricevuti verranno visualizzati qui. Puoi vedere i dati del pacchetto corrente, il numero di pacchetti ricevuti e il numero totale di pacchetti.
                 <br />
