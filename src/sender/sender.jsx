@@ -11,9 +11,8 @@ function Sender() {
   const [file_path, setFilePath] = useState("");
   const [current_packet, setCurrentPacket] = useState(null);
 
-  const PACKET_SIZE = 400;
-  const DELAY_BETWEEN_QR_CODES = 150;
-
+  const PACKET_SIZE = 500;
+  const DELAY_BETWEEN_QR_CODES = 200;
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   function handleFileSelection(e) {
@@ -27,8 +26,8 @@ function Sender() {
       return;
     }
 
-    if (file.size > 100000) {
-      alert("File size is too big. Please select a file smaller than 100kb");
+    if (file.size > 70000) {
+      alert("Il file è troppo grande! Seleziona un file più piccolo di 70kB.");
       setFileToTransfer(null);
       setFilePath("");
       return;
@@ -68,26 +67,33 @@ function Sender() {
       packet["total"] = count;
     });
 
+    const qr_codes = await Promise.all(
+      packets.map((packet) =>
+        QRCode.toDataURL(JSON.stringify(packet), {
+          errorCorrectionLevel: "Q",
+        }),
+      ),
+    );
+
     is_transferring_ref.current = true;
-    renderQrCodes(packets);
+    renderQrCodes(packets, qr_codes);
   }
 
-  async function renderQrCodes(packets) {
-    for (const packet of packets) {
+  async function renderQrCodes(packets, qr_codes) {
+    for (let index = 0; index < packets.length; index++) {
       if (!is_transferring_ref.current) {
         return;
       }
 
+      const packet = packets[index];
       setCurrentPacket(packet);
 
-      const json_payload = JSON.stringify(packet);
-      const qr_code = await QRCode.toDataURL(json_payload);
-      qr_code_img_ref.current.src = qr_code;
+      qr_code_img_ref.current.src = qr_codes[index];
 
       await delay(DELAY_BETWEEN_QR_CODES);
     }
 
-    renderQrCodes(packets);
+    renderQrCodes(packets, qr_codes);
   }
 
   function stopTransfer() {
@@ -95,18 +101,18 @@ function Sender() {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="sender-page min-h-screen bg-blue-50 text-blue-950">
       <div className="row">
-        <div className="col p-5">
-          <h1 className="text-4xl font-semibold">Sei il mittente!</h1>
-          <p>Seleziona un file (più piccolo di 100kb) e clicca su trasferisci</p>
+        <div className="col flex flex-col items-center p-5 text-center">
+          <h1 className="text-4xl font-semibold text-blue-950">Sei il mittente!</h1>
+          <p>Seleziona un file (più piccolo di 70kB) e clicca su trasferisci</p>
           <p>L'app inizierà a mostrare codici QR continui che puoi scansionare sul dispositivo dell'altro utente che fungerà da ricevente</p>
 
-          <div className="lg:max-w-[50%] mt-2">
-            <input value={file_path} className="form-control" type="file" onChange={handleFileSelection} />
+          <div className="mt-2 w-full max-w-xl">
+            <input value={file_path} className="form-control border-blue-300 bg-white text-blue-900" type="file" onChange={handleFileSelection} />
           </div>
 
-          <div className="flex flex-wrap gap-1 mt-2">
+          <div className="mt-2 flex flex-wrap justify-center gap-1">
             <NavLink to="/" className="px-5 py-2 rounded-md bg-blue-500 text-white cursor-pointer border-2 hover:border-blue-800">
               Back
             </NavLink>
@@ -118,10 +124,10 @@ function Sender() {
             </button>
           </div>
 
-          <div className="mt-2 lg:w-[300px] lg:h-[300px] border border-gray-300 p-2">
-            <img ref={qr_code_img_ref} className="object-contain" alt="qr-code" src={`no-qr-placeholder.png`} />
+          <div className="mt-2 mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center border border-blue-300 bg-white p-2 shadow-sm">
+            <img ref={qr_code_img_ref} className="w-full h-full object-contain" alt="qr-code" src={`no-qr-placeholder.png`} />
           </div>
-          <pre className="lg:w-[50%] bg-gray-100 p-4 rounded overflow-auto text-sm mt-2">
+          <pre className="mt-2 w-full max-w-xl overflow-auto rounded border border-blue-200 bg-blue-100 p-4 text-center text-sm text-blue-950">
             <p className="font-semibold">Current Data Packet</p>
             {JSON.stringify(current_packet, null, 2)}
           </pre>
